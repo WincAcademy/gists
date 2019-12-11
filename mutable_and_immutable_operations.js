@@ -16,7 +16,7 @@ console.log(result1); // 1
 
 
 
-// We voegen een item toe aan arr1 met concat, dat is NIET een mutable operatie
+// We voegen een item toe aan arr2 met concat, dat is NIET een mutable operatie
 let result2 = arr2.concat(9);
 
 // Als we arr2 nu loggen zul je zien dat deze NIET gemuteerd is
