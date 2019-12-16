@@ -6,9 +6,9 @@ const anotherClickHandler = () => console.log("yet another click handler");
 document.addEventListener("DOMContentLoaded", () => {
   const button2 = document.querySelectorAll("button")[1];
   button2.onclick = button2ClickHandler;
-  // button2.onclick = anotherClickHandler; // this will replace any existing onlick handlers
+  // button2.onclick = anotherClickHandler; // this will replace any existing onclick handlers
 
   const button3 = document.querySelectorAll("button")[2];
   button3.addEventListener("click", button3ClickHandler);
-  // button3.addEventListener("click", anotherClickHandler); // this will add to any existing onlick handlers
+  button3.addEventListener("click", anotherClickHandler); // this will add to any existing onclick handlers
 });
