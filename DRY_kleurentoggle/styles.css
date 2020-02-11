@@ -1,0 +1,44 @@
+body {
+  color: white;
+  background-color: lightgray;
+  font-family: Trebuchet MS, sans-serif;
+}
+
+button {
+  background-color: lightgrey;
+  border-radius: 4px;
+  border: 1px solid;
+  width: 50%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.start {
+  background-size: cover;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  cursor: pointer;
+  transition: all ease-in-out 200ms;
+}
+
+nav ul li {
+  list-style: none;
+}
+
+#btnRed {
+  background-color: red;
+}
+
+#btnOrange {
+  background-color: orange;
+}
+
+#btnPurple {
+  background-color: purple;
+}
+#btnGreen {
+  background-color: green;
+}
