@@ -1,15 +1,21 @@
-const getSucceedingPromise = (message, ms) =>
-  new Promise((resolve, reject) => {
+const getSucceedingPromise = (message, ms) => {
+  const succeedingPromise = new Promise((resolve, reject) => {
     setTimeout(() => resolve(message), ms);
   });
+  return succeedingPromise;
+};
 
-const getFailingPromise = (errorMessage, ms) =>
-  new Promise((resolve, reject) => {
+const getFailingPromise = (errorMessage, ms) => {
+  const failingPromise = new Promise((resolve, reject) => {
     setTimeout(() => reject(errorMessage), ms);
   });
+  return failingPromise;
+};
 
-const getRandomPromise = id => {
+const getRandomSucceedingOrFailingPromise = id => {
+  // This randomly resolves to true or false
   let promiseShouldSucceed = Math.random() > 0.5;
+  // This gets some semi-random amound of seconds under the 5seconds:
   let randomMillisecond = Math.round(Math.random() * 5000);
   if (promiseShouldSucceed) {
     return getSucceedingPromise(
@@ -38,39 +44,42 @@ const showPromises = promises => {
   promisesElements.forEach(element => promisesDiv.appendChild(element));
 };
 
-let i = 0;
-const promises = [];
-const add50PromiseHandler = () => {
+const add50Promises = () => {
+  let i = 0;
+  const allPromises = [];
+  // fill the allPromises array with 50 pending promises;
   while (i <= 50) {
     let id = i;
-    promises.push({
+    allPromises.push({
       state: "pending",
       id
     });
-
-    showPromises(promises);
-
-    const promise = getRandomPromise(id);
-    promise
-      .then(resolved => {
-        console.log(`msg: ${resolved}`);
-        promises[id].state = "resolved";
-        showPromises(promises);
-      })
-      .catch(error => {
-        promises[id].state = "errored";
-        showPromises(promises);
-      });
+    consumePromise(allPromises, id);
     i++;
   }
 };
 
-const start = () => {
-  document
-    .querySelector("button")
-    .addEventListener("click", add50PromiseHandler);
+const consumePromise = function(allPromises, id) {
+  const promise = getRandomSucceedingOrFailingPromise(id);
+  promise
+    .then(resolved => {
+      console.log(`msg: ${resolved}`);
+      allPromises[id].state = "resolved";
+      // To update the promises colors, call showPromises again
+      showPromises(allPromises);
+    })
+    .catch(error => {
+      console.log(`msg: ${error}`);
+      allPromises[id].state = "errored";
+      // To update the promises colors, call showPromises again
+      showPromises(allPromises);
+    });
+};
+
+const registerEventHandlers = () => {
+  document.querySelector("button").addEventListener("click", add50Promises);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  start();
+  registerEventHandlers();
 });
