@@ -51,16 +51,18 @@ const add50Promises = () => {
   while (i <= 50) {
     let id = i;
     allPromises.push({
-      state: "pending",
+      // state: "pending",
       id
     });
     consumePromise(allPromises, id);
     i++;
   }
+  showPromises(allPromises);
 };
 
 const consumePromise = function(allPromises, id) {
   const promise = getRandomSucceedingOrFailingPromise(id);
+  console.log(promise);
   promise
     .then(resolved => {
       console.log(`msg: ${resolved}`);
@@ -70,6 +72,7 @@ const consumePromise = function(allPromises, id) {
     })
     .catch(error => {
       console.log(`msg: ${error}`);
+
       allPromises[id].state = "errored";
       // To update the promises colors, call showPromises again
       showPromises(allPromises);
